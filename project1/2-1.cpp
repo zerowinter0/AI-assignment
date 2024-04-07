@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 #define int long long
 using namespace std;
-vector<string> next_States(string x){
+inline vector<string> next_States(string x){
     vector<string> v;
     for(int i=0;i<=8;i++){
         if(x[i]=='x'){
@@ -30,10 +30,11 @@ vector<string> next_States(string x){
     }
     return v;
 }
-set<string> st;
-void dfs(string bg){
+unordered_set<string> st;
+void dfs(string bg,string ed){
     deque<string> q;
     q.push_back(bg);
+    if(bg==ed)return;
     while(!q.empty()){
         string now=q.back();
         q.pop_back();
@@ -41,6 +42,7 @@ void dfs(string bg){
         for(const auto& i:v){
             if(st.find(i)==st.end()){
                 st.emplace(i);
+                if(i==ed)return;
                 q.push_back(i);
             }
         }
@@ -56,7 +58,7 @@ signed main(){
         cin>>x;
         a.push_back(x);
     }
-    dfs(a);
+    dfs(a,target);
     if(st.find(target)!=st.end())cout<<"1";
     else cout<<"0";
 }

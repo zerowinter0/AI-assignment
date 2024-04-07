@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#define int long long
 using namespace std;
 vector<pair<int,int>> sons[150005];
 bool vis[150005];
@@ -33,7 +34,6 @@ signed main(){
         sons[x].emplace_back(y,value);
     }
     dijkstra(n);
-    for(int i=1;i<=n;i++){
-        cout<<step[i]<<" ";
-    }
+    if(!vis[n])step[n]=-1;
+    cout<<step[n];
 }

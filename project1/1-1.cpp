@@ -5,6 +5,7 @@ bool vis[100005];
 int step[100005];
 void bfs(int n){
     vis[1]=true;
+    step[1]=0; 
     if(1==n)return;
     queue<int> q;
     q.push(1);
@@ -30,7 +31,6 @@ signed main(){
         int x,y;
         cin>>x>>y;
         sons[x].push_back(y);
-        sons[y].push_back(x);
     }
     bfs(n);
     if(!vis[n]){

@@ -30,13 +30,14 @@ vector<string> next_States(string x){
     }
     return v;
 }
-map<string,int> mp;
-void bfs(string bg){
+unordered_map<string,int> mp;
+void bfs(string bg,string target){
     queue<string> q;
     q.push(bg);
     mp[bg]=0;
     while(!q.empty()){
         string now=q.front();
+        if(now==target)return;
         q.pop();
         vector<string> v= next_States(now);
         for(const auto& i:v){
@@ -46,6 +47,18 @@ void bfs(string bg){
             }
         }
     }
+}
+bool checkLegal(string x){
+    int cnt=0;
+    for(int i=0;i<=8;i++){
+        for(int j=i+1;j<=8;j++){
+            if(x[i]=='x'||x[j]=='x')continue;
+            if(x[i]>x[j]){
+                cnt++;
+            }
+        }
+    }
+    return cnt%2==0;
 }
 signed main(){
     cin.tie(0); cout.tie(0);
@@ -57,7 +70,11 @@ signed main(){
         cin>>x;
         a.push_back(x);
     }
-    bfs(a);
+    if(!checkLegal(a)){
+        cout<<-1;
+        return 0;
+    }
+    bfs(a,target);
     if(mp.find(target)==mp.end()){
         cout<<-1;
     }
